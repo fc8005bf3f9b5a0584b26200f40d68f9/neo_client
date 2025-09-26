@@ -1,0 +1,3 @@
+host: "164.92.167.203:5005"
+exploit_dir: "exploits"
+grpc_auth_key: "9Az7XEt3iDd6sCCX"
