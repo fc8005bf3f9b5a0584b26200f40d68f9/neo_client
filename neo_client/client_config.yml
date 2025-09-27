@@ -1,0 +1,8 @@
+host: "10.0.0.1:5005"
+exploit_dir: "exploits"
+grpc_auth_key: "X1qP28fjYxyq3eouaLxnoN"
+
+metrics:
+  url: "10.0.0.1:8428/api/v1/import/prometheus"
+  user: "admin"
+  password: "1234"

@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
-COMMAND="$*"
+COMMAND=("$@")
 
 #if [[ -z "${VERSION}" && -f "${DIR}/.version" ]]; then
 #  VERSION=$(xargs <"${DIR}/.version")
@@ -29,13 +29,15 @@ else
   docker run -it \
     --rm \
     --volume "${DIR}":/work \
+    --workdir /work/neo_client \
     --security-opt seccomp=unconfined \
     --security-opt apparmor=unconfined \
     --cap-add=NET_ADMIN \
     --privileged \
+    --network host \
     --platform=linux/amd64 \
     --name "neo_client_mod" \
     --hostname "neo_client_mod" \
     "neo_client_mod" \
-    "${COMMAND}"
+    "${COMMAND[@]}"
 fi

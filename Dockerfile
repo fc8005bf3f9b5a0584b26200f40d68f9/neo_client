@@ -1,6 +1,26 @@
-FROM ghcr.io/pomo-mondreganto/neo_env:latest
+FROM python:3.11-slim
 
 COPY requirements.txt /.
+
+# Instalar herramientas útiles
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    libssl-dev \
+    curl \
+    iputils-ping \
+    netcat-traditional \
+    tesseract-ocr \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN apt update -y && apt install -y tesseract-ocr
 
-RUN python3.9 -m pip install --no-cache -r /requirements.txt
+RUN apt-get update && apt-get install -y dbus && rm -rf /var/lib/apt/lists/* \
+ && dbus-uuidgen > /etc/machine-id
+
+RUN python3.11 -m pip install --no-cache -r /requirements.txt
+
+ENV PATH="/work/neo_client:${PATH}"
+
+#RUN python3 -m pip install --upgrade pip setuptools wheel && \
+#    python3 -m pip install --no-cache-dir -r /requirements.txt
