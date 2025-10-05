@@ -1,6 +1,8 @@
-FROM python:3.11-slim
+FROM sagemath/sagemath:latest
 
 COPY requirements.txt /.
+
+USER root
 
 # Instalar herramientas útiles
 RUN apt-get update && apt-get install -y \
@@ -18,9 +20,8 @@ RUN apt update -y && apt install -y tesseract-ocr
 RUN apt-get update && apt-get install -y dbus && rm -rf /var/lib/apt/lists/* \
  && dbus-uuidgen > /etc/machine-id
 
-RUN python3.11 -m pip install --no-cache -r /requirements.txt
+USER sage
+
+RUN sage --pip install --no-cache -r /requirements.txt
 
 ENV PATH="/work/neo_client:${PATH}"
-
-#RUN python3 -m pip install --upgrade pip setuptools wheel && \
-#    python3 -m pip install --no-cache-dir -r /requirements.txt
