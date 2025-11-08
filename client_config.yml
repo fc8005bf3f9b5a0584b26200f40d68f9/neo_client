@@ -1,3 +1,3 @@
-host: "10.0.0.1:5005"
+host: "172.16.10.1:5005"
 exploit_dir: "exploits"
 grpc_auth_key: "X1qP28fjYxyq3eouaLxnoN"
